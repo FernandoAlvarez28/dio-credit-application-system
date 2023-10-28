@@ -24,7 +24,7 @@ class CreditService(
 
     override fun findAllByCustomer(customerId: Long): List<Credit> =
         this.creditRepository.findAllByCustomerId(
-            customerId
+            customerId,
         )
 
     override fun findByCreditCode(
