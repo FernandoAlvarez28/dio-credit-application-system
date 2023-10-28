@@ -41,6 +41,10 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+jacoco {
+    toolVersion = "0.8.11"
+}
+
 jacocoTestReport {
     dependsOn test // tests are required to run before generating the report
     reports {
