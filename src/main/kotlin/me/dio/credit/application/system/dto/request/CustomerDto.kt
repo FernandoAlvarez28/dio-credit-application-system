@@ -1,5 +1,6 @@
 package me.dio.credit.application.system.dto.request
 
+import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
@@ -8,6 +9,7 @@ import me.dio.credit.application.system.entity.Customer
 import org.hibernate.validator.constraints.br.CPF
 import java.math.BigDecimal
 
+@Schema(description = "Input data to register Customer")
 data class CustomerDto(
     @field:NotEmpty(message = "Invalid input") val firstName: String,
     @field:NotEmpty(message = "Invalid input") val lastName: String,

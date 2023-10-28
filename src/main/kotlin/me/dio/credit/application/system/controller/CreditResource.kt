@@ -1,12 +1,14 @@
 package me.dio.credit.application.system.controller
 
 import jakarta.validation.Valid
+import me.dio.credit.application.system.controller.documentation.CreditResourceDocumentation
 import me.dio.credit.application.system.dto.request.CreditDto
 import me.dio.credit.application.system.dto.response.CreditView
 import me.dio.credit.application.system.dto.response.CreditViewList
 import me.dio.credit.application.system.entity.Credit
 import me.dio.credit.application.system.service.impl.CreditService
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -22,19 +24,20 @@ import java.util.stream.Collectors
 @RequestMapping("/api/credits")
 class CreditResource(
     private val creditService: CreditService,
-) {
-    @PostMapping
-    fun saveCredit(
+) : CreditResourceDocumentation {
+
+    @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
+    override fun saveCredit(
         @RequestBody @Valid
         creditDto: CreditDto,
-    ): ResponseEntity<String> {
+    ): ResponseEntity<CreditView> {
         val credit: Credit = this.creditService.save(creditDto.toEntity())
         return ResponseEntity.status(HttpStatus.CREATED)
-            .body("Credit ${credit.creditCode} - Customer ${credit.customer?.email} saved!")
+            .body(CreditView(credit))
     }
 
-    @GetMapping
-    fun findAllByCustomerId(
+    @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
+    override fun findAllByCustomerId(
         @RequestParam(value = "customerId") customerId: Long,
     ): ResponseEntity<List<CreditViewList>> {
         val creditViewList: List<CreditViewList> =
@@ -45,8 +48,8 @@ class CreditResource(
         return ResponseEntity.status(HttpStatus.OK).body(creditViewList)
     }
 
-    @GetMapping("/{creditCode}")
-    fun findByCreditCode(
+    @GetMapping(path = ["/{creditCode}"], produces = [MediaType.APPLICATION_JSON_VALUE])
+    override fun findByCreditCode(
         @RequestParam(value = "customerId") customerId: Long,
         @PathVariable creditCode: UUID,
     ): ResponseEntity<CreditView> {

@@ -1,5 +1,6 @@
 package me.dio.credit.application.system.dto.request
 
+import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.Future
 import jakarta.validation.constraints.Max
 import jakarta.validation.constraints.Min
@@ -9,6 +10,9 @@ import me.dio.credit.application.system.entity.Customer
 import java.math.BigDecimal
 import java.time.LocalDate
 
+@Schema(
+    description = "Input data to request Credit"
+)
 data class CreditDto(
     @field:NotNull(message = "Invalid input")
     val creditValue: BigDecimal,

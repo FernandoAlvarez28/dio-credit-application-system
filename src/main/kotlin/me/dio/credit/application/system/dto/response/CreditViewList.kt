@@ -1,9 +1,11 @@
 package me.dio.credit.application.system.dto.response
 
+import io.swagger.v3.oas.annotations.media.Schema
 import me.dio.credit.application.system.entity.Credit
 import java.math.BigDecimal
 import java.util.*
 
+@Schema(description = "Summary representation of a Credit request")
 data class CreditViewList(
     val creditCode: UUID,
     val creditValue: BigDecimal,

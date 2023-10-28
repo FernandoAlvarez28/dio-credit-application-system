@@ -1,10 +1,12 @@
 package me.dio.credit.application.system.dto.request
 
+import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
 import me.dio.credit.application.system.entity.Customer
 import java.math.BigDecimal
 
+@Schema(description = "Input data to update a Customer")
 data class CustomerUpdateDto(
     @field:NotEmpty(message = "Invalid input") val firstName: String,
     @field:NotEmpty(message = "Invalid input") val lastName: String,
